@@ -1,0 +1,789 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cyber Quest</title>
+
+<style>
+#cyber-quest {
+    --bg: #0b1020;
+    --panel: #111936;
+    --card: #17213f;
+    --text: #f7f9ff;
+    --muted: #aab5d4;
+    --accent: #61e7b8;
+    --accent2: #7aa7ff;
+    --danger: #ff7187;
+
+    font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+    color: var(--text);
+}
+
+#cyber-quest * {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #0b1020;
+}
+
+#cyber-quest .hero {
+    padding: 28px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, #101a38, #10182b);
+    border: 1px solid #28365d;
+    margin-bottom: 18px;
+}
+
+/* HERO LAYOUT: TEXT LEFT, IMAGE RIGHT */
+#cyber-quest .hero-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 35px;
+}
+
+#cyber-quest .hero-text {
+    flex: 1;
+    min-width: 0;
+}
+
+#cyber-quest .eyebrow {
+    color: var(--accent);
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+#cyber-quest h1 {
+    font-size: clamp(32px, 7vw, 58px);
+    line-height: 1;
+    margin: 8px 0 12px;
+}
+
+#cyber-quest h2 {
+    font-size: 24px;
+    margin: 0 0 8px;
+}
+
+#cyber-quest p {
+    color: var(--muted);
+    line-height: 1.55;
+}
+
+#cyber-quest .hero p {
+    max-width: 650px;
+    font-size: 17px;
+}
+
+#cyber-quest .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#cyber-quest .pill {
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: #172344;
+    border: 1px solid #2a3a65;
+    font-size: 13px;
+}
+
+#cyber-quest .pill b {
+    color: var(--accent);
+}
+
+/* CYBERSECURITY IMAGE */
+#cyber-quest .cyber-image {
+    display: block;
+    flex: 0 0 38%;
+    width: 38%;
+    max-width: 350px;
+    height: auto;
+    margin: 0;
+    border-radius: 16px;
+    object-fit: contain;
+}
+
+#cyber-quest .nav {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+#cyber-quest .nav button {
+    border: 1px solid #2a3a65;
+    background: #121c38;
+    color: var(--text);
+    padding: 11px 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+#cyber-quest .nav button.active,
+#cyber-quest .nav button:hover {
+    background: var(--accent);
+    color: #07131a;
+    border-color: var(--accent);
+}
+
+#cyber-quest .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 12px;
+}
+
+#cyber-quest .card {
+    background: var(--panel);
+    border: 1px solid #28365d;
+    border-radius: 18px;
+    padding: 18px;
+}
+
+#cyber-quest .game {
+    min-height: 175px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#cyber-quest .icon {
+    font-size: 30px;
+}
+
+#cyber-quest .small {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+#cyber-quest .btn {
+    width: 100%;
+    margin-top: 12px;
+    padding: 12px 14px;
+    border: 0;
+    border-radius: 12px;
+    background: var(--accent);
+    color: #07131a;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+#cyber-quest .btn.secondary {
+    background: #1b294c;
+    color: var(--text);
+    border: 1px solid #30436f;
+}
+
+#cyber-quest .btn:focus,
+#cyber-quest .nav button:focus {
+    outline: 3px solid #fff;
+    outline-offset: 2px;
+}
+
+#cyber-quest .hidden {
+    display: none;
+}
+
+#cyber-quest .question {
+    font-size: 18px;
+    font-weight: 800;
+    margin: 14px 0;
+}
+
+#cyber-quest .answers {
+    display: grid;
+    gap: 9px;
+}
+
+#cyber-quest .answers button {
+    padding: 13px;
+    border-radius: 12px;
+    border: 1px solid #34466f;
+    background: #172342;
+    color: var(--text);
+    text-align: left;
+    cursor: pointer;
+}
+
+#cyber-quest .answers button:hover:not(:disabled) {
+    border-color: var(--accent);
+}
+
+#cyber-quest .answers button:disabled {
+    opacity: .7;
+    cursor: default;
+}
+
+#cyber-quest .feedback {
+    margin-top: 12px;
+    font-weight: 800;
+}
+
+#cyber-quest .good {
+    color: var(--accent);
+}
+
+#cyber-quest .bad {
+    color: var(--danger);
+}
+
+#cyber-quest .tip {
+    border-left: 4px solid var(--accent);
+    padding-left: 14px;
+    margin: 16px 0;
+}
+
+#cyber-quest .bar {
+    height: 10px;
+    background: #202d4c;
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+#cyber-quest .bar span {
+    display: block;
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width .3s;
+}
+
+#cyber-quest .footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 18px;
+}
+
+/* RESPONSIVE LAYOUT */
+@media (max-width: 650px) {
+    #cyber-quest .hero-content {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    #cyber-quest .cyber-image {
+        flex: none;
+        width: 80%;
+        max-width: 300px;
+        margin: 10px auto 0;
+    }
+
+    #cyber-quest .hero p {
+        max-width: none;
+    }
+
+    #cyber-quest .stats {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    #cyber-quest .hero {
+        padding: 21px;
+    }
+
+    #cyber-quest .nav button {
+        flex: 1 1 45%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="cyber-quest">
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="hero-text">
+
+            <div class="eyebrow">
+                Cybersecurity Awareness Month
+            </div>
+
+            <h1>
+                CYBER QUEST 🛡️
+            </h1>
+
+            <p>
+                Can you outsmart the internet? Explore mini-games, catch scams,
+                protect your accounts, and become Lasell's Cyber Champion.
+            </p>
+
+            <div class="stats">
+
+                <div class="pill">
+                    ⚡ XP <b id="xp">0</b>
+                </div>
+
+                <div class="pill">
+                    🏅 Badge <b id="badge">Rookie</b>
+                </div>
+
+                <div class="pill">
+                    🎯 Missions <b id="missions">0</b>
+                </div>
+
+            </div>
+
+        </div>
+
+        <img
+            src="cybersecurity.png"
+            alt="Cybersecurity shield illustration"
+            class="cyber-image"
+        >
+
+    </div>
+
+</section>
+
+<div class="nav" role="tablist">
+
+    <button class="active" data-page="home">
+        🏠 Home
+    </button>
+
+    <button data-page="games">
+        🎮 Mini-Games
+    </button>
+
+    <button data-page="learn">
+        🧠 Cyber Tips
+    </button>
+
+    <button data-page="kahoot">
+        🏆 Kahoot
+    </button>
+
+</div>
+
+<section id="home" class="page">
+
+    <div class="grid">
+
+        <div class="card game">
+            <div>
+                <div class="icon">🎣</div>
+                <h2>Catch the Phish</h2>
+                <p class="small">Can you tell which message is a scam?</p>
+            </div>
+            <button class="btn" data-go="games">Play →</button>
+        </div>
+
+        <div class="card game">
+            <div>
+                <div class="icon">🔐</div>
+                <h2>Password Power</h2>
+                <p class="small">Learn what makes a password strong.</p>
+            </div>
+            <button class="btn" data-go="games">Play →</button>
+        </div>
+
+        <div class="card game">
+            <div>
+                <div class="icon">🚨</div>
+                <h2>Scam Alert</h2>
+                <p class="small">Spot the red flags before it's too late.</p>
+            </div>
+            <button class="btn" data-go="games">Play →</button>
+        </div>
+
+        <div class="card game">
+            <div>
+                <div class="icon">🕵️</div>
+                <h2>Cyber Detective</h2>
+                <p class="small">Solve a fictional account-hacking mystery.</p>
+            </div>
+            <button class="btn" data-go="games">Play →</button>
+        </div>
+
+    </div>
+
+    <div class="card" style="margin-top:12px">
+
+        <h2>🚀 Your Mission</h2>
+
+        <p>
+            Complete the mini-games and earn enough XP to become a Cyber Guardian.
+        </p>
+
+        <div class="bar">
+            <span id="progress"></span>
+        </div>
+
+        <p class="small" id="progressText">
+            0 / 1000 XP
+        </p>
+
+    </div>
+
+</section>
+
+<section id="games" class="page hidden">
+
+    <div class="card">
+
+        <div class="eyebrow">
+            Mini-game
+        </div>
+
+        <h2 id="gameTitle">
+            🎣 Catch the Phish
+        </h2>
+
+        <p id="gameIntro">
+            Read the message and choose whether you would trust it.
+        </p>
+
+        <div id="gameArea"></div>
+
+    </div>
+
+</section>
+
+<section id="learn" class="page hidden">
+
+    <div class="grid">
+
+        <div class="card">
+
+            <h2>🔐 Protect your accounts</h2>
+
+            <div class="tip">
+                <b>Use unique passwords.</b>
+                <br>
+                <span class="small">
+                    Don't reuse the same password everywhere.
+                </span>
+            </div>
+
+            <div class="tip">
+                <b>Turn on MFA.</b>
+                <br>
+                <span class="small">
+                    A second verification step can stop an attacker even if your password is stolen.
+                </span>
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>🎣 Beat phishing</h2>
+
+            <div class="tip">
+                <b>Slow down.</b>
+                <br>
+                <span class="small">
+                    Scammers often create urgency so you don't think.
+                </span>
+            </div>
+
+            <div class="tip">
+                <b>Check the sender and link.</b>
+                <br>
+                <span class="small">
+                    Don't click just because a message looks official.
+                </span>
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>📱 Think before posting</h2>
+
+            <div class="tip">
+                <b>Information adds up.</b>
+                <br>
+                <span class="small">
+                    Small details about your school, location, pets, birthday,
+                    or routines can reveal more than you expect.
+                </span>
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>🤖 Be smart with AI</h2>
+
+            <div class="tip">
+                <b>Verify surprising requests.</b>
+                <br>
+                <span class="small">
+                    AI can make convincing messages, images, and voices.
+                    Verify through a trusted channel.
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section id="kahoot" class="page hidden">
+
+    <div class="card">
+
+        <div class="eyebrow">
+            Live school challenge
+        </div>
+
+        <h2>🏆 Cyber Clash Kahoot</h2>
+
+        <p>
+            We will be running a school-wide Kahoot this month and send everyone here afterward
+            to learn more and collect their Cyber Quest badge. Date of the Kahoot is yet to be
+            decided. The winner will get a $50 Lasell Gift card!
+        </p>
+
+        <div class="grid">
+
+            <div class="card">
+                <h2>15–20</h2>
+                <p class="small">Fast questions</p>
+            </div>
+
+            <div class="card">
+                <h2>⚡ LIVE</h2>
+                <p class="small">Leaderboard</p>
+            </div>
+
+            <div class="card">
+                <h2>🏅 1st</h2>
+                <p class="small">Cyber Champion</p>
+            </div>
+
+        </div>
+
+        <button class="btn" id="kahootInfo">
+            Show Challenge Rules
+        </button>
+
+        <div id="kahootMsg" class="feedback" aria-live="polite"></div>
+
+    </div>
+
+</section>
+
+<div class="footer">
+    Think • Check • Protect • Report
+</div>
+
+</div>
+
+<script>
+(() => {
+
+    const root = document.getElementById('cyber-quest');
+
+    if (!root || root.dataset.ready) {
+        return;
+    }
+
+    root.dataset.ready = '1';
+
+    let xp = 0;
+    let missions = 0;
+
+    const pages = [...root.querySelectorAll('.page')];
+    const nav = [...root.querySelectorAll('.nav button')];
+
+    const xpEl = root.querySelector('#xp');
+    const badgeEl = root.querySelector('#badge');
+    const missionsEl = root.querySelector('#missions');
+    const progress = root.querySelector('#progress');
+    const progressText = root.querySelector('#progressText');
+
+    function award(n) {
+
+        xp = Math.min(1500, xp + n);
+        missions++;
+
+        xpEl.textContent = xp;
+        missionsEl.textContent = missions;
+
+        badgeEl.textContent =
+            xp >= 1000
+                ? 'Cyber Guardian'
+                : xp >= 600
+                ? 'Security Pro'
+                : xp >= 250
+                ? 'Cyber Scout'
+                : 'Rookie';
+
+        progress.style.width = Math.min(100, xp / 10) + '%';
+        progressText.textContent = xp + ' / 1000 XP';
+    }
+
+    function show(name) {
+
+        pages.forEach(page => {
+            page.classList.toggle('hidden', page.id !== name);
+        });
+
+        nav.forEach(button => {
+            button.classList.toggle('active', button.dataset.page === name);
+        });
+
+        if (name === 'games') {
+            startGame();
+        }
+    }
+
+    nav.forEach(button => {
+        button.addEventListener('click', () => show(button.dataset.page));
+    });
+
+    root.querySelectorAll('[data-go]').forEach(button => {
+        button.addEventListener('click', () => show(button.dataset.go));
+    });
+
+    const questions = [
+
+        {
+            title: '🎣 Catch the Phish',
+            q: '“URGENT! Your account will be deleted in 10 minutes. Verify your password here: example-security-login.com” What should you do?',
+            a: [
+                'Click immediately',
+                'Ignore the urgency, verify through the official app/site',
+                'Reply with your password'
+            ],
+            correct: 1,
+            why: 'Urgency and an unexpected login link are major red flags.'
+        },
+
+        {
+            title: '🔐 Password Power',
+            q: 'Which is the best choice?',
+            a: [
+                'School123!',
+                'password123',
+                'A long unique passphrase you do not reuse'
+            ],
+            correct: 2,
+            why: 'Length, uniqueness, and avoiding reuse are key.'
+        },
+
+        {
+            title: '🚨 Scam Alert',
+            q: 'A friend messages: “I’m locked out. Send me the verification code you just received.” What do you do?',
+            a: [
+                'Send it',
+                'Post it in the group chat',
+                'Do not share it; contact your friend another way'
+            ],
+            correct: 2,
+            why: 'Verification codes should never be shared. The account may be compromised.'
+        },
+
+        {
+            title: '🕵️ Cyber Detective',
+            q: 'What is the safest response to a suspicious school email?',
+            a: [
+                'Forward it to everyone',
+                'Open every attachment to investigate',
+                'Report it using your school’s trusted reporting method'
+            ],
+            correct: 2,
+            why: 'Reporting lets the right people investigate without spreading the threat.'
+        }
+
+    ];
+
+    let qi = 0;
+
+    function startGame() {
+        qi = qi % questions.length;
+        renderQ();
+    }
+
+    function renderQ() {
+
+        const g = questions[qi];
+
+        root.querySelector('#gameTitle').textContent = g.title;
+
+        root.querySelector('#gameIntro').textContent =
+            'Choose the safest answer. You earn XP for correct decisions.';
+
+        const area = root.querySelector('#gameArea');
+
+        area.innerHTML = `
+            <div class="question"></div>
+            <div class="answers"></div>
+            <div id="feedback" class="feedback" aria-live="polite"></div>
+        `;
+
+        area.querySelector('.question').textContent = g.q;
+
+        g.a.forEach((ans, i) => {
+
+            const b = document.createElement('button');
+
+            b.type = 'button';
+            b.textContent = ans;
+
+            b.addEventListener('click', () => {
+
+                [...area.querySelectorAll('.answers button')].forEach(x => {
+                    x.disabled = true;
+                });
+
+                const f = area.querySelector('#feedback');
+
+                if (i === g.correct) {
+
+                    f.className = 'feedback good';
+                    f.textContent = '✅ Correct! +250 XP — ' + g.why;
+
+                    award(250);
+
+                } else {
+
+                    f.className = 'feedback bad';
+                    f.textContent = '❌ Not quite. ' + g.why;
+
+                }
+
+                setTimeout(() => {
+                    qi = (qi + 1) % questions.length;
+                    renderQ();
+                }, 1800);
+
+            });
+
+            area.querySelector('.answers').appendChild(b);
+
+        });
+
+    }
+
+    root.querySelector('#kahootInfo').addEventListener('click', () => {
+
+        root.querySelector('#kahootMsg').textContent =
+            '🎯 Rules: join the live Kahoot, use your real first name or school-approved nickname, answer fast, and aim for the top of the leaderboard!';
+
+    });
+
+    show('home');
+
+})();
+</script>
+
+</body>
+</html>
+```
